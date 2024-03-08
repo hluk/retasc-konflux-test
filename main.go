@@ -6,8 +6,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type message struct {
+    Message string `json:"message"`
+}
+
 func hello(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"message": "Hello"})
+	c.JSON(http.StatusOK, message{Message: "Hello"})
 }
 
 func setupRouter() *gin.Engine {
