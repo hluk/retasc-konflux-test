@@ -1,0 +1,52 @@
+---
+ci:
+  skip:
+    - gofmt
+    - swag-init
+    - swag-fmt
+    - hadolint-docker
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: debug-statements
+      - id: end-of-file-fixer
+        exclude: docs/.*
+      - id: trailing-whitespace
+
+  - repo: https://github.com/golangci/golangci-lint
+    rev: v1.56.2
+    hooks:
+      - id: golangci-lint
+
+  - repo: local
+    hooks:
+      - id: gofmt
+        name: gofmt
+        pass_filenames: true
+        entry: gofmt -l -w
+        files: \.go$
+        language: system
+        types: [text]
+      - id: swag-init
+        name: Generate swagger docs
+        pass_filenames: false
+        entry: swag init
+        files: \.go$
+        language: system
+        types: [text]
+      - id: swag-fmt
+        name: Format swagger comments
+        pass_filenames: false
+        entry: swag fmt
+        files: \.go$
+        language: system
+        types: [text]
+
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.12.1-beta
+    hooks:
+      - id: hadolint-docker
