@@ -1,0 +1,62 @@
+definitions:
+  api_v1.message:
+    properties:
+      message:
+        type: string
+    type: object
+  main.indexData:
+    properties:
+      dirty_build:
+        type: boolean
+      last_commit:
+        type: string
+      revision:
+        type: string
+      swagger_ui:
+        type: string
+      version:
+        type: string
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:8081
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: https://github.com/hluk/retasc-konflux-test
+  description: Proof of concept
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: ReTaSC Konflux Test
+  version: "1.0"
+paths:
+  /:
+    get:
+      consumes:
+      - application/json
+      description: Index
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.indexData'
+      summary: Index
+  /api/v1/hello:
+    get:
+      consumes:
+      - application/json
+      description: Greets
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_v1.message'
+      summary: Greeting message
+swagger: "2.0"
