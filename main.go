@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
 	"github.com/swaggo/gin-swagger"
@@ -24,11 +25,18 @@ type indexData struct {
 // @Description	Index
 // @Accept			json
 // @Produce		json
-// @Success		200	{object} indexData
+// @Success		200	{object}	indexData
 // @Router			/ [get]
 func index(c *gin.Context) {
+	scheme := "http"
+	if c.Request.TLS != nil {
+		scheme = "https"
+	}
+
+	swaggerUrl := fmt.Sprintf("%s://%s/swagger/index.html", scheme, c.Request.Host)
+
 	index := indexData{
-		SwaggerUI:  "/swagger/index.html",
+		SwaggerUI:  swaggerUrl,
 		Version:    "unknown",
 		Revision:   "unknown",
 		LastCommit: "unknown",
