@@ -22,7 +22,10 @@ LABEL \
 
 COPY --from=builder /opt/app-root/src/main /app/main
 
-ENV PORT 8081
+ENV \
+  GIN_MODE=release \
+  PORT=8081
+
 EXPOSE 8081
 
 CMD ["/app/main"]
