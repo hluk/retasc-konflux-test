@@ -9,6 +9,11 @@ on:
 jobs:
   gotest:
     runs-on: ubuntu-latest
+
+    permissions:
+      # Allow updating coverage badges
+      contents: write
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
