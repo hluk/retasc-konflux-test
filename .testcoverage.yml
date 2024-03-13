@@ -1,0 +1,22 @@
+profile: cover.out
+
+local-prefix: github.com/hluk/retasc-konflux-test
+
+threshold:
+  # The minimum coverage that each file should have
+  file: 90
+  # The minimum coverage that each package should have
+  package: 90
+  # The minimum total coverage project should have
+  total: 90
+
+exclude:
+  paths:
+    - ^docs/
+
+## when token is not specified (value '') this feature is turned off
+## in this example badge is created and committed only for main brach
+git-token: ${{ github.ref_name == 'main' && secrets.GITHUB_TOKEN || '' }}
+## name of branch where badges are stored
+## ideally this should be orphan branch (see below how to create this branch)
+git-branch: badges

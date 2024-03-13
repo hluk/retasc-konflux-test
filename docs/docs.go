@@ -37,7 +37,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.indexData"
+                            "$ref": "#/definitions/api.IndexData"
                         }
                     }
                 }
@@ -65,7 +65,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "api.indexData": {
+        "api.IndexData": {
             "type": "object",
             "properties": {
                 "dirty_build": {

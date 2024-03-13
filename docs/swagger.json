@@ -29,7 +29,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.indexData"
+                            "$ref": "#/definitions/api.IndexData"
                         }
                     }
                 }
@@ -57,7 +57,7 @@
         }
     },
     "definitions": {
-        "api.indexData": {
+        "api.IndexData": {
             "type": "object",
             "properties": {
                 "dirty_build": {
