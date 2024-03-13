@@ -37,7 +37,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/main.indexData"
+                            "$ref": "#/definitions/api.indexData"
                         }
                     }
                 }
@@ -65,15 +65,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "api_v1.message": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "main.indexData": {
+        "api.indexData": {
             "type": "object",
             "properties": {
                 "dirty_build": {
@@ -89,6 +81,14 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "version": {
+                    "type": "string"
+                }
+            }
+        },
+        "api_v1.message": {
+            "type": "object",
+            "properties": {
+                "message": {
                     "type": "string"
                 }
             }
