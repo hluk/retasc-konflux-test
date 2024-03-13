@@ -1,5 +1,5 @@
 definitions:
-  api.indexData:
+  api.IndexData:
     properties:
       dirty_build:
         type: boolean
@@ -43,7 +43,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.indexData'
+            $ref: '#/definitions/api.IndexData'
       summary: Index
   /api/v1/hello:
     get:

@@ -1,3 +1,5 @@
+![coverage](https://raw.githubusercontent.com/hluk/retasc-konflux-test/badges/.badges/main/coverage.svg)
+
 Proof of concept for an Go+OpenShift project tested and deployed via [App
 Studio](https://github.com/redhat-appstudio/docs.appstudio.io).
 
