@@ -33,8 +33,13 @@ go run .
 
 ## Testing
 
-```
-go test
+```bash
+odo run test
+# or
+odo run --platform podman test
+# or
+go test ./...
+# or
 ```
 
 ## TODO

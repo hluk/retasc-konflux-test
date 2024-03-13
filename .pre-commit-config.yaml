@@ -1,6 +1,7 @@
 ---
 ci:
   skip:
+    - go-test
     - gofmt
     - swag-init
     - swag-fmt
@@ -24,6 +25,11 @@ repos:
 
   - repo: local
     hooks:
+      - id: go-test
+        name: go-test
+        pass_filenames: false
+        entry: go test ./...
+        language: system
       - id: gofmt
         name: gofmt
         pass_filenames: true

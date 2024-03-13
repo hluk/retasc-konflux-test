@@ -1,10 +1,5 @@
 definitions:
-  api_v1.message:
-    properties:
-      message:
-        type: string
-    type: object
-  main.indexData:
+  api.indexData:
     properties:
       dirty_build:
         type: boolean
@@ -15,6 +10,11 @@ definitions:
       swagger_ui:
         type: string
       version:
+        type: string
+    type: object
+  api_v1.message:
+    properties:
+      message:
         type: string
     type: object
 externalDocs:
@@ -43,7 +43,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/main.indexData'
+            $ref: '#/definitions/api.indexData'
       summary: Index
   /api/v1/hello:
     get:

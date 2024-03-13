@@ -1,4 +1,4 @@
-package main
+package api
 
 import (
 	"net/http"
@@ -9,7 +9,7 @@ import (
 )
 
 func TestHello(t *testing.T) {
-	router := setupRouter()
+	router := SetupRouter()
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/api/v1/hello", nil)
