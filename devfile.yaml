@@ -19,6 +19,19 @@ components:
       image: registry.access.redhat.com/ubi9/go-toolset:1.20.12-3
       memoryLimit: 1024Mi
       mountSources: true
+  - name: kubernetes-deploy
+    attributes:
+      deployment/replicas: 1
+      deployment/cpuRequest: 10m
+      deployment/memoryRequest: 10Mi
+      deployment/container-port: 8081
+    kubernetes:
+      uri: k8s-deploy.yaml
+      endpoints:
+      - name: http-8081
+        targetPort: 8081
+        path: /
+        secure: true
 commands:
   - id: build-image
     apply:
@@ -69,3 +82,14 @@ commands:
         isDefault: true
         kind: debug
       workingDir: ${PROJECT_SOURCE}
+  - id: deployk8s
+    apply:
+      component: kubernetes-deploy
+  - id: deploy
+    composite:
+      commands:
+        - build-image
+        - deployk8s
+      group:
+        kind: deploy
+        isDefault: true
