@@ -14,7 +14,7 @@ func TestIndex(t *testing.T) {
 	router := SetupRouter()
 
 	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("GET", "https:///", nil)
+	req, _ := http.NewRequest("GET", "/", nil)
 	router.ServeHTTP(w, req)
 
 	assert.Equal(t, 200, w.Code)
@@ -25,12 +25,12 @@ func TestIndex(t *testing.T) {
 
 	value, exists := body["swagger_ui"]
 	assert.True(t, exists)
-	assert.Equal(t, "https:///swagger/index.html", value.(string))
+	assert.Equal(t, "http:///swagger/index.html", value.(string))
 }
 
 func TestIndexData(t *testing.T) {
-	index := NewIndexData("https:///swagger/index.html")
-	assert.Equal(t, "https:///swagger/index.html", index.SwaggerUI)
+	index := NewIndexData("/swagger/index.html")
+	assert.Equal(t, "/swagger/index.html", index.SwaggerUI)
 	assert.Equal(t, "unknown", index.Version)
 	assert.Equal(t, "unknown", index.Revision)
 	assert.Equal(t, "unknown", index.LastCommit)
@@ -45,8 +45,8 @@ func TestIndexDataFromBuildInfo(t *testing.T) {
 		{Key: "vcs.time", Value: "TIME"},
 		{Key: "vcs.modified", Value: "false"},
 	}
-	index := NewIndexDataFromBuildInfo("https:///swagger/index.html", &info)
-	assert.Equal(t, "https:///swagger/index.html", index.SwaggerUI)
+	index := NewIndexDataFromBuildInfo("/swagger/index.html", &info)
+	assert.Equal(t, "/swagger/index.html", index.SwaggerUI)
 	assert.Equal(t, "(debug)", index.Version)
 	assert.Equal(t, "REVISION", index.Revision)
 	assert.Equal(t, "TIME", index.LastCommit)

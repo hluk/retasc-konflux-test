@@ -48,8 +48,12 @@ func NewIndexDataFromBuildInfo(swaggerUi string, info *debug.BuildInfo) IndexDat
 // @Success		200	{object}	IndexData
 // @Router			/ [get]
 func index(c *gin.Context) {
+	scheme := "http"
+	if c.Request.TLS != nil {
+		scheme = "https"
+	}
 	swaggerUrl := fmt.Sprintf(
-		"%s://%s/swagger/index.html", c.Request.URL.Scheme, c.Request.Host)
+		"%s://%s/swagger/index.html", scheme, c.Request.Host)
 
 	info, ok := debug.ReadBuildInfo()
 	if ok {
