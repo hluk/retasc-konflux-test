@@ -393,6 +393,55 @@ spec:
         operator: in
         values:
         - "false"
+    - name: go-test
+      runAfter:
+      - clone-repository
+      taskSpec:
+        steps:
+        - image: registry.access.redhat.com/ubi9/go-toolset:1.20.12-3
+          script: |
+            go test ./...
+          workingDir: /workspace/workspace/source
+      workspaces:
+      - name: workspace
+        workspace: workspace
+    - name: gofmt
+      runAfter:
+      - clone-repository
+      taskSpec:
+        steps:
+        - image: registry.access.redhat.com/ubi9/go-toolset:1.20.12-3
+          script: |
+            differ=$(find -name '*.go' -exec gofmt -l {} + | tr '\n' ' ')
+            if [[ -n "$differ" ]]; then
+              echo "Repository is not up-to-date."
+              echo "Please run: gofmt -w $differ"
+              exit 1
+            fi
+          workingDir: /workspace/workspace/source
+      workspaces:
+      - name: workspace
+        workspace: workspace
+    - name: go-swag
+      runAfter:
+      - clone-repository
+      taskSpec:
+        steps:
+        - image: registry.access.redhat.com/ubi9/go-toolset:1.20.12-3
+          script: |
+            go install github.com/swaggo/swag/cmd/swag@latest
+            ~/go/bin/swag init
+            ~/go/bin/swag fmt
+            git config --global --add safe.directory "$PWD"
+            if ! git diff --exit-code; then
+              echo "Repository is not up-to-date."
+              echo "Please run: swag init && swag fmt"
+              exit 1
+            fi
+          workingDir: /workspace/workspace/source
+      workspaces:
+      - name: workspace
+        workspace: workspace
     workspaces:
     - name: workspace
     - name: git-auth
