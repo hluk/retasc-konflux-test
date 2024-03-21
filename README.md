@@ -46,7 +46,6 @@ go test ./...
 
 ## TODO
 
-- Run tests in pull requests and on merge to main branch
-- Ensure majority of the code is covered by tests
 - Some simple Jira API calls
 - Healthchecks
+- OpenTelemetry tracing
