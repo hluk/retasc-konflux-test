@@ -4,11 +4,11 @@ local-prefix: github.com/hluk/retasc-konflux-test
 
 threshold:
   # The minimum coverage that each file should have
-  file: 85
+  file: 90
   # The minimum coverage that each package should have
-  package: 85
+  package: 90
   # The minimum total coverage project should have
-  total: 85
+  total: 90
 
 exclude:
   paths:
