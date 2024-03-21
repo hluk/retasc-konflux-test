@@ -1,20 +1,22 @@
 package api
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"runtime/debug"
 	"testing"
 
+	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 )
 
-func TestIndex(t *testing.T) {
+func TestIndexSwaggerUrlSimple(t *testing.T) {
 	router := SetupRouter()
 
 	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("GET", "/", nil)
+	req, _ := http.NewRequest(http.MethodGet, "/", nil)
 	router.ServeHTTP(w, req)
 
 	assert.Equal(t, 200, w.Code)
@@ -26,6 +28,28 @@ func TestIndex(t *testing.T) {
 	value, exists := body["swagger_ui"]
 	assert.True(t, exists)
 	assert.Equal(t, "http:///swagger/index.html", value.(string))
+}
+
+func TestIndexSwaggerUrlFull(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+
+	w := httptest.NewRecorder()
+	c, _ := gin.CreateTestContext(w)
+	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: false}
+	c.Request, _ = http.NewRequest(http.MethodGet, "https://test.example.com/", nil)
+	c.Request.TLS = &tls.ConnectionState{}
+	assert.True(t, nil != c.Request.TLS)
+	index(c)
+
+	assert.Equal(t, 200, w.Code)
+
+	var body map[string]interface{}
+	err := json.Unmarshal(w.Body.Bytes(), &body)
+	assert.Nil(t, err)
+
+	value, exists := body["swagger_ui"]
+	assert.True(t, exists)
+	assert.Equal(t, "https://test.example.com/swagger/index.html", value.(string))
 }
 
 func TestIndexData(t *testing.T) {
